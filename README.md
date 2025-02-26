@@ -13,7 +13,7 @@
 ## 📺 화면 구성
 |                         로그인 페이지                         |                      회원가입 페이지                      |                           메인 페이지                            |
 | :-----------------------------------------------------------: | :-------------------------------------------------------: | :--------------------------------------------------------------: |
-|       <img width="334" alt="Image" src="https://github.com/user-attachments/assets/d4a8c6cf-2bb6-4bfc-9c5a-c6bdb8613010" />        |     <img width="196" alt="Image" src="https://github.com/user-attachments/assets/97732255-f2da-474d-b41f-29e61d62525b" />     |         <img width="543" alt="Image" src="https://github.com/user-attachments/assets/a4b1c734-b5e5-4313-8399-8eb6bae86cbe" />          |
+|       <img width="334" alt="Image" src="https://github.com/user-attachments/assets/d4a8c6cf-2bb6-4bfc-9c5a-c6bdb8613010" />        |     <img width="196" alt="Image" src="https://github.com/user-attachments/assets/97732255-f2da-474d-b41f-29e61d62525b" />     |         <img width="600" alt="Image" src="https://github.com/user-attachments/assets/a4b1c734-b5e5-4313-8399-8eb6bae86cbe" />          |
 |                        제품 상세 페이지                         |                       제품 등록 페이지                       |                         마이 페이지                         |
 |    <img width="543" alt="Image" src="https://github.com/user-attachments/assets/a2248416-fb37-488d-bb83-1bc4dc5f0d1a" />    |    <img width="542" alt="Image" src="https://github.com/user-attachments/assets/669e51f4-ea59-46e1-bfa4-86903417e408" />    | <img width="579" alt="Image" src="https://github.com/user-attachments/assets/bc651688-4a87-4149-b3d6-6542fa6b3096" /> |
 |                        장바구니 페이지                         |                      주문/결제 페이지                      |                                                      |
@@ -22,7 +22,6 @@
 
 
 ## ✨ 구현 기능
-### 📋 메인페이지
 
 
 ## 📚 기술 스택
