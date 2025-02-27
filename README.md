@@ -1,4 +1,4 @@
-<img width="550" alt="Image" src="https://github.com/user-attachments/assets/2992e864-6a17-4e3e-94eb-33d24c8f893d" />
+<img alt="배너" width="100%" src="https://github.com/user-attachments/assets/2992e864-6a17-4e3e-94eb-33d24c8f893d" />
 
 
 ## 🔍 개발 기간 및 인원
