@@ -10,35 +10,49 @@ const sanitizeFileName = (fileName) => {
     .replace(/[^\w.-]/g, '');    // Remove special characters
 };
 
+// Create shared presigned upload data
+const createPresignedUpload = async ({ folder, fileName, fileType }) => {
+  const safeFileName = sanitizeFileName(fileName);
+  const uniqueFileName = `${folder}/${Date.now()}_${safeFileName}`;
+
+  const params = {
+    Bucket: AWS_S3_BUCKET,
+    Key: uniqueFileName,
+    ContentType: fileType,
+    ACL: 'public-read',
+  };
+
+  const presignedUrl = await getSignedUrl(
+    s3,
+    new PutObjectCommand(params),
+    { expiresIn: 3600 }
+  );
+
+  const s3ObjectUrl = `https://${params.Bucket}.s3.${AWS_REGION}.amazonaws.com/${uniqueFileName}`;
+
+  return { presignedUrl, s3ObjectUrl };
+};
+
 const fileController = {
     // Create Profile Image Presigned URL
     generateProfilePresignedUrl: async (req, res) => {
         const { fileName, fileType } = req.body; // Receive file name and type from client
+
         if (!fileName || !fileType) {
             return res.status(400).send('File name and type are required.');
         }
 
         try {
-            const safeFileName = sanitizeFileName(fileName);
-            const uniqueFileName = `profile/${Date.now()}_${safeFileName}`;
-            const params = {
-                Bucket: AWS_S3_BUCKET,
-                Key: uniqueFileName,
-                ContentType: fileType,
-                ACL: 'public-read',
-            };
-
-            // Create Presigned URL
-            const presignedUrl = await getSignedUrl(s3, new PutObjectCommand(params), {
-                expiresIn: 3600, // URL Expiration (1 hour)
+            const result = await createPresignedUpload({
+                folder: 'profile',
+                fileName,
+                fileType,
             });
 
-            // Create S3 Object URL
-            const s3ObjectUrl = `https://${params.Bucket}.s3.${AWS_REGION}.amazonaws.com/${uniqueFileName}`;
-            res.status(200).json({ presignedUrl, s3ObjectUrl });
+            return res.status(200).json(result);
         } catch (error) {
-            console.error('Failed to create presynd URL:', error);
-            res.status(500).send('Failed to create presynd URL');
+        console.error('Failed to create presigned URL:', error);
+        return res.status(500).send('Failed to create presigned URL');
         }
     },
 
@@ -50,25 +64,16 @@ const fileController = {
         }
 
         try {
-            const safeFileName = sanitizeFileName(fileName);
-            const uniqueFileName = `product/${Date.now()}_${safeFileName}`;
-            const params = {
-                Bucket: 'elice-project-oreore',
-                Key: uniqueFileName,
-                ContentType: fileType,
-                ACL: 'public-read',
-            };
-
-            const presignedUrl = await getSignedUrl(s3, new PutObjectCommand(params), {
-                expiresIn: 3600,
+            const result = await createPresignedUpload({
+                folder: 'product',
+                fileName,
+                fileType,
             });
 
-            const s3ObjectUrl = `https://${params.Bucket}.s3.${AWS_REGION}.amazonaws.com/${uniqueFileName}`;
-
-            res.status(200).json({ presignedUrl, s3ObjectUrl });
+            return res.status(200).json(result);
         } catch (error) {
-            console.error('Failed to create presynd URL:', error);
-            res.status(500).send('Failed to create presynd URL');
+        console.error('Failed to create presigned URL:', error);
+        return res.status(500).send('Failed to create presigned URL');
         }
     },
 };
