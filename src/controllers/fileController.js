@@ -1,67 +1,64 @@
-import s3 from '../config/aws.js'; // S3 클라이언트
+import s3, { AWS_REGION, AWS_S3_BUCKET } from '../config/aws.js';
 import { PutObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 const fileController = {
-    // 프로필 이미지 프리사인드 URL 생성
+    // Create Profile Image Presigned URL
     generateProfilePresignedUrl: async (req, res) => {
-        const { fileName, fileType } = req.body; // 클라이언트에서 파일 이름과 타입을 전달받음
+        const { fileName, fileType } = req.body; // Receive file name and type from client
         if (!fileName || !fileType) {
-            return res.status(400).send('파일 이름과 타입이 필요합니다.');
+            return res.status(400).send('File name and type are required.');
         }
 
         try {
-            const uniqueFileName = `profile/${Date.now()}_${fileName}`; // 고유 파일 이름
+            const uniqueFileName = `profile/${Date.now()}_${fileName}`; // Unique File Name
             const params = {
-                Bucket: 'elice-project-oreore',
+                Bucket: AWS_S3_BUCKET,
                 Key: uniqueFileName,
                 ContentType: fileType,
-                ACL: 'public-read', // 퍼블릭 읽기 권한 설정
+                ACL: 'public-read',
             };
 
-            // 프리사인드 URL 생성
+            // Create Presigned URL
             const presignedUrl = await getSignedUrl(s3, new PutObjectCommand(params), {
-                expiresIn: 3600, // URL 유효기간 (1시간)
+                expiresIn: 3600, // URL Expiration (1 hour)
             });
 
-            // S3 객체 URL 생성
-            const s3ObjectUrl = `https://${params.Bucket}.s3.ap-northeast-2.amazonaws.com/${uniqueFileName}`;
-
+            // Create S3 Object URL
+            const s3ObjectUrl = `https://${params.Bucket}.s3.${AWS_REGION}.amazonaws.com/${uniqueFileName}`;
             res.status(200).json({ presignedUrl, s3ObjectUrl });
         } catch (error) {
-            console.error('프리사인드 URL 생성 실패:', error);
-            res.status(500).send('프리사인드 URL 생성 실패');
+            console.error('Failed to create presynd URL:', error);
+            res.status(500).send('Failed to create presynd URL');
         }
     },
 
-    // 상품 이미지 프리사인드 URL 생성
+    // Create Product Image Presigned URL
     generateProductPresignedUrl: async (req, res) => {
         const { fileName, fileType } = req.body;
         if (!fileName || !fileType) {
-            return res.status(400).send('파일 이름과 타입이 필요합니다.');
+            return res.status(400).send('File name and type are required.');
         }
 
         try {
-            const uniqueFileName = `product/${Date.now()}_${fileName}`; // 고유 파일 이름
+            const uniqueFileName = `product/${Date.now()}_${fileName}`;
             const params = {
                 Bucket: 'elice-project-oreore',
                 Key: uniqueFileName,
                 ContentType: fileType,
-                ACL: 'public-read', // 퍼블릭 읽기 권한 설정
+                ACL: 'public-read',
             };
 
-            // 프리사인드 URL 생성
             const presignedUrl = await getSignedUrl(s3, new PutObjectCommand(params), {
-                expiresIn: 3600, // URL 유효기간 (1시간)
+                expiresIn: 3600,
             });
 
-            // S3 객체 URL 생성
-            const s3ObjectUrl = `https://${params.Bucket}.s3.ap-northeast-2.amazonaws.com/${uniqueFileName}`;
-
+            const s3ObjectUrl = `https://${params.Bucket}.s3.${AWS_REGION}.amazonaws.com/${uniqueFileName}`;
+            
             res.status(200).json({ presignedUrl, s3ObjectUrl });
         } catch (error) {
-            console.error('프리사인드 URL 생성 실패:', error);
-            res.status(500).send('프리사인드 URL 생성 실패');
+            console.error('Failed to create presynd URL:', error);
+            res.status(500).send('Failed to create presynd URL');
         }
     },
 };
