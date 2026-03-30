@@ -27,12 +27,12 @@ A second-hand electronics marketplace designed for easy selling, enabling users 
  
 ## 📺 Screen Layout
 
-|Log in (로그인)|Sign up (회원가입)|Main (메인)|
+|Log in|Sign up|Main|
 | :-----------------------------------------------------------: | :-------------------------------------------------------: | :--------------------------------------------------------------: |
 |       <img width="949" height="780" alt="Image" src="https://github.com/user-attachments/assets/62c39c19-8fff-4e04-bcf7-50e35181654f" />        |     <img width="935" height="800" alt="Image" src="https://github.com/user-attachments/assets/048a209f-bf18-40dd-acac-0cde638f1999" />     |         <img width="981" height="714" alt="Image" src="https://github.com/user-attachments/assets/29e93779-9f70-4e8d-88c0-781f13863f52" />          |
-|Product Detail (제품 상세)|Add Product (제품 등록)|My Account (마이 페이지)|
+|Product Detail|Add Product|My Account|
 |    <img width="944" height="605" alt="Image" src="https://github.com/user-attachments/assets/8c43a805-5002-4de7-9fdc-0753b8dda7e8" />    |    <img width="623" height="725" alt="Image" src="https://github.com/user-attachments/assets/5233216e-1fc1-48e0-8e06-01890a3b72c3" />    | <img width="1005" height="799" alt="Image" src="https://github.com/user-attachments/assets/308cc925-e85c-47f3-9218-8858608942ae" /> |
-|Edit Profile Info|Shopping Cart (장바구니)|Checkout Page (주문/결제)|
+|Edit Profile Info|Shopping Cart|Checkout Page|
 | <img width="1005" height="763" alt="Image" src="https://github.com/user-attachments/assets/8478a514-3978-4571-98ad-34eb0d85c831" /> | <img width="1002" height="620" alt="Image" src="https://github.com/user-attachments/assets/6b28991a-9264-4040-8bfe-a5c0d77606b1" /> |     <img width="1011" height="790" alt="Image" src="https://github.com/user-attachments/assets/ed7aada6-36bf-41dd-961c-f526740fb57d" />     |
 
 
