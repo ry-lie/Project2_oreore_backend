@@ -10,21 +10,24 @@ A second-hand electronics marketplace designed for easy selling, enabling users 
 - 서비스명 : oreore( 오래오래 ) </br>
 - 프로젝트 설명 : 중고 물품을 등록하고 거래할 수 있는 간편한 중고거래 플랫폼
 </details>
- 
-## 🔍 Project Timeline
-- Development Period: November 12, 2024 – November 25, 2024
-- Team: </br>
-	•	Frontend: Jiyeon Kim, Hayoung Kim </br>
-	•	Backend: Seobin Lee, Jisoo Han, Junyoung Choi
+</br>
 
-<details>
-<summary>🇰🇷 Korean Description</summary>
-- 개발 기간 : 2024/11/12 ~ 2024/11/25 </br>
-- 개발 인원 : 프론트엔드 2명(김지연, 김하영) / 백엔드 3명(최준영, 이서빈, 한지수)
-</details>
+## ✨ Key Features
+- 📋 **Main Page** </br>
+	•	Browse products uploaded by users by category.</br>
+	•	Sort products by newest or oldest.
+- 📷 **Product Detail Page** </br>
+	•	View detailed product information and seller details.</br>
+	•	Add products to the cart or purchase them directly.
+- 🙌🏻 **My Page** </br>
+	•	View and update user profile information.</br>
+	•	Manage products currently for sale, including listing, editing, and deleting items.
+- 🛒 **Cart & Checkout** </br>
+	•	Add items to the cart before purchasing.</br>
+	•	Show the total price grouped by seller when multiple items are purchased from the same seller.</br>
+	•	Implemented payment functionality using the Toss Payments API.
+</br>
 
-
- 
 ## 📺 Screen Layout
 
 |Log in|Sign up|Main|
@@ -36,8 +39,64 @@ A second-hand electronics marketplace designed for easy selling, enabling users 
 | <img width="1005" height="763" alt="Image" src="https://github.com/user-attachments/assets/8478a514-3978-4571-98ad-34eb0d85c831" /> | <img width="1002" height="620" alt="Image" src="https://github.com/user-attachments/assets/6b28991a-9264-4040-8bfe-a5c0d77606b1" /> |     <img width="1011" height="790" alt="Image" src="https://github.com/user-attachments/assets/ed7aada6-36bf-41dd-961c-f526740fb57d" />     |
 
 
+## 🛠️ Technical Challenges & Solutions
+<details>
+<summary><strong>1. Separating Buyer and Seller Roles</strong></summary>
 
-## ✨ Features
+<br>
+
+**Problem**  
+In a secondhand marketplace, users can act as both buyers and sellers, which made role handling unclear during product registration and order processing.
+
+**Solution**
+- Explicitly assigned `sellerId` when creating products and `buyerId` when creating orders.
+- Used `authMiddleware` to verify the logged-in user and consistently use the authenticated `userId` throughout product and order flows.
+- Improved the middleware to validate the `Authorization` header, decode the token, and store user information in `req.user`.
+
+**Outcome**
+- Clearly separated buyer and seller roles across the service.
+- Improved data consistency and strengthened authentication-based request handling.
+
+</details>
+
+<details>
+<summary><strong>2. Toss Payments Integration</strong></summary>
+
+<br>
+
+**Problem**  
+Payment requests were created successfully, but the payment approval step sometimes failed, which prevented orders from being completed properly.
+
+**Solution**
+- Reviewed and fixed approval request parameters such as `paymentKey`, `orderId`, and `secretKey`.
+- Added logic to prevent duplicate approval requests for the same `orderId`.
+
+**Outcome**
+- Stabilized the payment approval flow.
+- Reduced the risk of duplicate or inconsistent payment processing.
+
+</details>
+
+<details>
+<summary><strong>3. AWS S3 Upload Flow Refactoring</strong></summary>
+
+<br>
+
+**Problem**  
+Unsafe file names and duplicated upload logic caused broken image URLs and made the backend harder to maintain.
+
+**Solution**
+- Implemented AWS S3 presigned URL uploads for profile and product images.
+- Refactored repeated upload logic into a reusable backend function.
+- Moved S3 configuration into environment variables.
+- Sanitized file names before generating S3 object keys to prevent broken image URLs.
+
+**Outcome**
+- Reduced duplicated code and improved maintainability.
+- Resolved image rendering issues caused by unsafe file names.
+- Made the upload flow more reliable across different environments.
+
+</details>
 
 
 ## 📚 Technology Stack
